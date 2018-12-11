@@ -1,6 +1,7 @@
 # QUESTION 2
 
 
+
 def add_item(item):
     my_list.append(item)
     for x in my_list:
@@ -11,6 +12,7 @@ def add_item(item):
             break
         else:
             print(user_input)
+
 my_list = []
 
 user_input = input("Please Enter an element to add to the list > ")
