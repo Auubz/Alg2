@@ -26,5 +26,5 @@ percent_male = 1 - percent_female
 avg_age = (total_ages/row_counter)
 
 print(round(avg_age,2))
-print("Percentage Male =" + (str(percent_male * 100) + "%")
+print("Percentage Male =" + (str(percent_male * 100) + "%"))
 print("Percentage Female =" + (str(percent_female * 100)) + "%")
