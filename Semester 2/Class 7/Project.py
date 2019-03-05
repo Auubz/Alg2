@@ -8,10 +8,10 @@ class Worker:
         self.__last_name = last_name
         self.__hire_date = hire_date
 
-    def set_first_name(self, first_name: str)
+    def set_first_name(self, first_name: str):
         self.__first_name = first_name
 
-    def set_last_name(self, last_name: str)
+    def set_last_name(self, last_name: str):
             self.__last_name = last_name
 
     def get_id(self):
@@ -39,6 +39,9 @@ class Employee(Worker):
     def get_salary(self,):
         return self.__salary
 
+    def get_hourly_rate(self):
+        return self.__salary / 261 / 8
+
 class Contractor(Worker):
 
     def __init__(self, id: int, first_name: str, last_name: str, hire_date: datetime, hourly_rate: float):
@@ -53,13 +56,13 @@ class Contractor(Worker):
 
 class Task:
 
-    def __init__(self, task_id, name, description, assigned_to: Worker, duration_hours: float, work_hours_worked):
+    def __init__(self, task_id, name, description, assigned_to: Worker, duration_hours: float):
         self.__task_id = task_id
         self.__name = name
         self.__description = description
         self.__assigned_to = assigned_to
         self.__duration_hours = duration_hours
-        self.__work_hours_worked = work_hours_worked
+
 
     def set_name(self,name: str):
         self.__name  = name
@@ -73,7 +76,6 @@ class Task:
     def set_assigned_to(self, assigned_to: Worker):
             self.__assigned_to: assigned_to
 
-    def set_duration_hours(self):
 
     def get_id(self):
         return self.__task_id
@@ -92,11 +94,10 @@ class Task:
 
 
 class Project:
-    def __init__(self, id: int, name: str,description: str , hours_estimated: float):
+    def __init__(self, id: int, name: str , hours_estimated: float):
         self.__id= id
         self.__name = name
-        self.__description = description
-
+        self.__tasks = []
         self.__hours_estimated = hours_estimated
 
     def set_name(self,name: str):
@@ -105,14 +106,35 @@ class Project:
     def set_hours_estimated(self,hours_estimated: float):
         self.__hours_estimated = hours_estimated
 
-
     def get_id(self):
         return self.__id
 
     def get_name(self):
         return self.__name
 
-    def get_description(self):
-        return self.__description
+    def add_task(self,task: Task):
+        self.__tasks.append(task)
+
+    def get_project_cost(self):
+
+        total_cost = 0.00
+
+        for task in self.__tasks:
+
+            total_cost += task.get_duration_hours() + task.get_assigned_to().get_hourly_rate()
+
+        return total_cost
 
 
+emp = Employee(1,"Brendan","Wood",None, 75000)
+contr = Contractor(2,"Alice","Smith",None, 78)
+
+task1 = Task (1,"Cook Breakfast", "Cook a great breakfast", emp, 10)
+task2 = Task(2,"Make Lunch", "Lunch is important", contr, 10)
+
+proj1 = Project(1,"Project 1", 30)
+
+proj1.add_task(task1)
+proj1.add_task(task2)
+
+print("The total cost for the project will be" + proj1.get_name() + str(proj1.get_project_cost()))
